@@ -144,7 +144,7 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 0) {
-            player.sendMessage("§6§lKese §f" + economy.format(economy.getBalance(player)) + " altınınız var.");
+            player.sendMessage("\n§6Kese §8§l≫ " + economy.format(economy.getBalance(player)) + " Altın\n§r ");
         }
 
         return true;
