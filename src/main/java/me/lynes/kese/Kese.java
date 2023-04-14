@@ -4,7 +4,6 @@ import me.lynes.kese.cmds.AltinCmd;
 import me.lynes.kese.cmds.KeseAdminCmd;
 import me.lynes.kese.cmds.KeseCmd;
 import me.lynes.kese.listeners.PlayerListener;
-import me.lynes.kese.utils.UpdateChecker;
 import me.lynes.kese.vault.KeseVaultEconomy;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
@@ -39,10 +38,6 @@ public final class Kese extends JavaPlugin {
         Metrics metrics = new Metrics(this, 13183);
 
         // Update checker
-        UpdateChecker.check(this);
-        UpdateChecker.sendToConsole(this);
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () -> UpdateChecker.check(this), 1728000,
-                1728000); // 1 gün
 
         // Vault integration
         economy = new KeseVaultEconomy();

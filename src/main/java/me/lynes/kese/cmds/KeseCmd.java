@@ -1,6 +1,7 @@
 package me.lynes.kese.cmds;
 
 import me.lynes.kese.Kese;
+import me.lynes.kese.utils.Utils;
 import me.lynes.kese.vault.KeseVaultEconomy;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -38,12 +39,14 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
                 try {
                     amount = Integer.parseInt(args[1]);
                 } catch (NumberFormatException e) {
-                    player.sendMessage("§cMiktar sayı olmalıdır.");
+                    //player.sendMessage("§cMiktar sayı olmalıdır.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.must-be-number"));
                     return true;
                 }
 
                 if (amount < 0) {
-                    player.sendMessage("§cMiktar sayı olmalıdır.");
+                    //player.sendMessage("§cMiktar sayı olmalıdır.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.must-be-number"));
                     return true;
                 }
 
@@ -52,13 +55,18 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
                 HashMap<Integer, ItemStack> hm = player.getInventory().removeItem(new ItemStack(Material.GOLD_INGOT, (int) amount));
                 if (hm.isEmpty()) {
                     if (!economy.depositPlayer(player, amount).transactionSuccess()) {
-                        player.sendMessage("§cBir hata oluştu, işlem gerçekleştirilemiyor.");
+                        //player.sendMessage("§cBir hata oluştu, işlem gerçekleştirilemiyor.");
+                        Utils.msgPlayer(player,Utils.getConf("messages.an-error-occured"));
                         return true;
                     }
 
-                    player.sendMessage("§6§lKese §fenvanterinizdeki " + formatted + " altın keseye koyuldu.");
-                    player.sendMessage("Yeni altın miktarı §6" + economy.format(economy.getBalance(player)) + " §6Altın");
-                    player.sendMessage("§a§l+ §a" + formatted);
+                    //player.sendMessage("§6§lKese §fenvanterinizdeki " + formatted + " altın keseye koyuldu.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.put-to-pouch").replace("%formatted%",formatted));
+                    //player.sendMessage("Yeni altın miktarı §6" + economy.format(economy.getBalance(player)) + " §6Altın");
+                    Utils.msgPlayer(player,Utils.getConf("messages.new-balance").replace("%balance%",economy.format(economy.getBalance(player))));
+                    //player.sendMessage("§a§l+ §a" + formatted);
+                    Utils.msgPlayer(player,Utils.getConf("messages.increase").replace("%formatted%",formatted));
+
 
                     return true;
                 } else {
@@ -68,20 +76,25 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
                     }
 
                     if (!economy.depositPlayer(player, amount - z).transactionSuccess()) {
-                        player.sendMessage("§cBir hata oluştu, işlem gerçekleştirilemiyor.");
+                        //player.sendMessage("§cBir hata oluştu, işlem gerçekleştirilemiyor.");
+                        Utils.msgPlayer(player,Utils.getConf("messages.an-error-occured"));
                         return true;
                     }
 
                     formatted = economy.format(amount - z);
-                    player.sendMessage("§6§lKese §fenvanterinizdeki " + formatted + " altın keseye koyuldu.");
-                    player.sendMessage("Yeni altın miktarı §6" + economy.format(economy.getBalance(player)) + " §6Altın");
-                    player.sendMessage("§a§l+ §a" + formatted);
+                    //player.sendMessage("§6§lKese §fenvanterinizdeki " + formatted + " altın keseye koyuldu.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.put-to-pouch").replace("%formatted%",formatted));
+                    //player.sendMessage("Yeni altın miktarı §6" + economy.format(economy.getBalance(player)) + " §6Altın");
+                    Utils.msgPlayer(player,Utils.getConf("messages.new-balance").replace("%balance%",economy.format(economy.getBalance(player))));
+                    //player.sendMessage("§a§l+ §a" + formatted);
+                    Utils.msgPlayer(player,Utils.getConf("messages.increase").replace("%formatted%",formatted));
 
                     return true;
                 }
 
             } else {
-                player.sendMessage("§cMiktar sayı olmalıdır.");
+                //player.sendMessage("§cMiktar sayı olmalıdır.");
+                Utils.msgPlayer(player,Utils.getConf("messages.must-be-number"));
                 return true;
             }
         }
@@ -92,12 +105,14 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
                 try {
                     amount = Integer.parseInt(args[1]);
                 } catch (NumberFormatException e) {
-                    player.sendMessage("§cMiktar sayı olmalıdır.");
+                    //player.sendMessage("§cMiktar sayı olmalıdır.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.must-be-number"));
                     return true;
                 }
 
                 if (amount < 0) {
-                    player.sendMessage("§cMiktar sayı olmalıdır.");
+                    //player.sendMessage("§cMiktar sayı olmalıdır.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.must-be-number"));
                     return true;
                 }
 
@@ -106,15 +121,20 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
                 if (economy.has(player, amount)) {
                     double bal = economy.getBalance(player);
                     if (!economy.withdrawPlayer(player, amount).transactionSuccess()) {
-                        player.sendMessage("§cBir hata oluştu, işlem gerçekleştirilemiyor.");
+                        //player.sendMessage("§cBir hata oluştu, işlem gerçekleştirilemiyor.");
+                        Utils.msgPlayer(player,Utils.getConf("messages.an-error-occured"));
                         return true;
                     }
-                    player.sendMessage("§6§lKese §f" + economy.format(bal) + " altın aldın.");
-                    player.sendMessage("Yeni altın miktarı §6" + economy.format(economy.getBalance(player)) + " §6Altın");
-                    player.sendMessage("§c§l- §c" + formatted);
+                    //player.sendMessage("§6§lKese §f" + economy.format(bal) + " altın aldın.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.got-gold").replace("%gold%",economy.format(bal)));
+                    //player.sendMessage("Yeni altın miktarı §6" + economy.format(economy.getBalance(player)) + " §6Altın");
+                    Utils.msgPlayer(player,Utils.getConf("messages.new-balance").replace("%balance%",economy.format(economy.getBalance(player))));
+                    //player.sendMessage("§c§l- §c" + formatted);
+                    Utils.msgPlayer(player,Utils.getConf("messages.decrease").replace("%formatted%",formatted));
                     HashMap<Integer, ItemStack> map = player.getInventory().addItem(new ItemStack(Material.GOLD_INGOT, (int) amount));
                     if (!map.isEmpty() && map.get(0).getAmount() != 0) {
-                        player.sendMessage("§cEnvanterinde yer kalmadığı için altınlar yere düştü!");
+                        //player.sendMessage("§cEnvanterinde yer kalmadığı için altınlar yere düştü!");
+                        Utils.msgPlayer(player,Utils.getConf("messages.inventory-space"));
 
                         if (map.get(0).getAmount() <= 64) {
                             player.getWorld().dropItem(player.getLocation(), new ItemStack(Material.GOLD_INGOT, map.get(0).getAmount()));
@@ -130,11 +150,13 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
                     }
                     return true;
                 } else {
-                    player.sendMessage("§cKesenizde yeterli miktarda altın yok.");
+                    //player.sendMessage("§cKesenizde yeterli miktarda altın yok.");
+                    Utils.msgPlayer(player,Utils.getConf("messages.not-enough-gold"));
                     return true;
                 }
             } else {
-                player.sendMessage("§cMiktar sayı olmalıdır.");
+               //player.sendMessage("§cMiktar sayı olmalıdır.");
+                Utils.msgPlayer(player,Utils.getConf("messages.must-be-number"));
                 return true;
             }
         }
@@ -144,7 +166,8 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
         }
 
         if (args.length == 0) {
-            player.sendMessage("\n§6Kese §8§l≫ " + economy.format(economy.getBalance(player)) + " Altın\n§r ");
+            //player.sendMessage("\n§6Kese §8§l≫ " + economy.format(economy.getBalance(player)) + " Altın\n§r ");
+            Utils.msgPlayer(player,Utils.getConf("messages.pouch-balance").replace("%balance%",economy.format(economy.getBalance(player))));
         }
 
         return true;
@@ -164,11 +187,15 @@ public class KeseCmd implements CommandExecutor, TabCompleter {
 
 
     private void sendHelpMessage(Player player) {
-        player.sendMessage("§6.oOo.__________________.[ §e/kese §6].__________________.oOo.");
+        /*player.sendMessage("§6.oOo.__________________.[ §e/kese §6].__________________.oOo.");
         player.sendMessage("§3/kese §7Kesenizde bulunan altını gösterir.");
         player.sendMessage("§3/kese §bkoy (miktar) §7Keseye altın koyar.");
         player.sendMessage("§3/kese §bal (miktar) §7Keseden altın alır.");
-        player.sendMessage("§3/altin §bgonder (oyuncu) (miktar) §7Hedef oyuncuya altın gönderir.");
+        player.sendMessage("§3/altin §bgonder (oyuncu) (miktar) §7Hedef oyuncuya altın gönderir.");*/
+
+        String sendMsg = String.join("\n",Utils.getList("messages.help-messages"));
+        Utils.msgPlayer(player,sendMsg);
+
     }
 
 }

@@ -1,1 +1,23 @@
 decimal_format: '0.0#'
+
+messages:
+  pouch-balance: "&6Kese &8&l≫&e %balance% Altın"
+  must-be-number: "&cGirilen miktar bir sayı olmalıdır."
+  an-error-occured: "&cBir hata oluştu, işlem gerçekleştirilemiyor."
+  put-to-pouch: "&6Envanterinizdeki &e%formatted% Altın&6, altın kesenize koyuldu"
+  new-balance: "&6Yeni altın miktarınız &e%balance% Altın&6."
+  increase: "&a&l+ &e%formatted% Altın"
+  decrease: "&c&l- &e%formatted% Altın"
+  got-gold: "&e%gold% Altın&6 aldın."
+  inventory-space: "&cEnvanterinde yer kalmadığı için altınlar yere düşürüldü!"
+  not-enough-gold: "&cKesenizde yeterli miktarda altın yok."
+  must-be-higher: "&cBelirtilen miktar &41 Altın&c'dan küçük olamaz."3
+  player-not-found: "&cBelirtilen oyuncu bulunamadı ya da çevrim içi değil."
+  cant-send-yourself: "&cKendine altın gönderemezsin."
+  help-messages:
+    - "&6.oOo.__________________.[ &e/kese &6].__________________.oOo."
+    - "&3/kese &7Kesenizde bulunan altını gösterir."
+    - "&3/kese &bkoy (miktar) &7Keseye altın koyar."
+    - "&3/kese &bal (miktar) &7Keseden altın alır."
+    - "&3/altin &bgonder (oyuncu) (miktar) &7Hedef oyuncuya altın gönderir."
+
